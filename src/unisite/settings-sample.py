@@ -11,13 +11,19 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'sqlite.db',                    # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'ENGINE': '',       # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': '',         # Or path to database file if using sqlite3.
+        'USER': '',         # Not used with sqlite3.
+        'PASSWORD': '',     # Not used with sqlite3.
+        'HOST': '',         # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',         # Set to empty string for default. Not used with sqlite3.
     }
+}
+
+# When using MySQL, it is strongly recommended to uncomment
+# the line setting InnoDB as the default storage engine.
+DATABASE_OPTIONS = {
+#    "init_command": "SET storage_engine=INNODB",
 }
 
 # Local time zone for this installation. Choices can be found here:
