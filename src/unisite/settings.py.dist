@@ -151,3 +151,23 @@ LOGGING = {
         },
     }
 }
+
+# Available languages.
+# Only languages made available here can be chosen for translations
+LANGUAGES = (
+    ('de', _('German')),
+    ('en', _('English')),
+    ('es', _('Spanish')),
+    ('fr', _('French')),
+)
+
+# Number of objects (e. g. Blog entries) to display on one page
+ENTRIES_PER_PAGE = 10
+ENTRIES_PER_FEED = 15
+
+# Tag Cloud settings
+TAGCLOUD_THRESHOLD = 3
+TAGCLOUD_STAGES = 4
+
+# Directory for keeping various caches - must be write enabled
+CACHE_DIR = '/tmp'

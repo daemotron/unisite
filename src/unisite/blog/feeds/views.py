@@ -17,62 +17,33 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 from datetime import datetime
 
 from django.http import Http404
-from django.conf import settings
-from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.contrib.auth.models import User
+from django.contrib.comments.models import Comment
+from django.conf import settings
+#from django.contrib.comments.feeds import LatestCommentFeed
+#from django.contrib.syndication.views import Feed
 
 from unisite.util import response
 from unisite.blog import models
+from unisite.blog.views import get_entry_list
 
 
-def get_entry_list(year=0, month=0, day=0, author='', slug='', tagslug=''):
-    entries = models.Entry.objects.filter(status__exact='p').filter(publish_date__lte=datetime.now())
+#def generic_comments(request):
+#    fdict = { 'latest': LatestCommentFeed, }
+#    return feed(request, 'latest', fdict)
+
+
+def feed_list(request, year=0, month=0, day=0, author='', tagslug=''):
     
-    if year > 0:
-        entries = entries.filter(publish_date__year=year)
-        
-    if month > 0:
-        entries = entries.filter(publish_date__month=month)
-
-    if day > 0:
-        entries = entries.filter(publish_date__day=day)
-
-    if author != '':
-        entries = entries.filter(entrytranslation__author__username=author)
-        
-    if slug != '':
-        entries = entries.filter(entrytranslation__slug__iexact=slug)
-        
-    if tagslug != '':
-        entries = entries.filter(tags__slug__iexact=tagslug)
-
-    entries = entries.distinct()
-    entries = entries.order_by('-publish_date')
+    entries = get_entry_list(int(year), int(month), int(day), author, '', tagslug)
     
-    return entries
-
-
-def entry_detail(request, year, month, day, slug):
-    entry = get_entry_list(int(year), int(month), int(day), '', slug)
-    if entry:
-        ctx = {
-            'entry': entry[0]
-        }
-        return response.render(request, 'blog/entry_detail.html', ctx)
+    if entries.count() >= settings.ENTRIES_PER_FEED:
+        entries = entries[:settings.ENTRIES_PER_FEED]
+    
+    if entries:
+        pdate = entries[0].publish_date
     else:
-        raise Http404
-
-
-def entry_list(request, year=0, month=0, day=0, author='', tagslug='', page=1):
-    
-    # Fetch and paginate the entry list
-    entry_list = get_entry_list(int(year), int(month), int(day), author, '', tagslug)
-    paginator = Paginator(entry_list, settings.ENTRIES_PER_PAGE)
-    
-    try:
-        entries = paginator.page(page)
-    except (EmptyPage, InvalidPage):
-        entries = paginator.page(paginator.num_pages)
+        pdate = None
     
     # If month and day have not been set, assign 1 (so they don't block the date() function)
     if (year != 0 and month == 0 and day == 0):
@@ -102,6 +73,9 @@ def entry_list(request, year=0, month=0, day=0, author='', tagslug='', page=1):
         
     ctx = {
         'entries': entries,
+        'pubdate': pdate,
+        'host': request.get_host(),
+        'secure': request.is_secure(),
         'filter': {
             'author': authorUser,
             'date': {'type': dtype, 'value': date},
@@ -109,8 +83,37 @@ def entry_list(request, year=0, month=0, day=0, author='', tagslug='', page=1):
         }
     }
     
-    return response.render(request, 'blog/entry_list.html', ctx)
+    return response.render(request, 'blog/feeds/rss_entries.html', ctx, mimetype="application/rss+xml")
 
 
-def feed(request, type):
-    pass
+def comment_list(request, entry=0):
+    
+    if entry > 0:
+        try:
+            ent = models.Entry.objects.get(id=entry)
+        except models.Entry.DoesNotExist:
+            raise Http404
+    else:
+        ent = None
+    
+    try:
+        clist = Comment.objects.filter(content_type__model='entry').filter(is_public=True).filter(is_removed=False)
+    except Comment.DoesNotExist:
+        clist = None
+        
+    pdate = None
+    if clist != None:
+        clist = clist.order_by('-submit_date')
+        try:
+            pdate = clist[0].submit_date
+        except IndexError:
+            pdate = None
+    
+    ctx = {
+        'pubdate': pdate,
+        'entry': ent,
+        'host': request.get_host(),
+        'secure': request.is_secure(),
+    }
+    
+    return response.render(request, 'blog/feeds/rss_comments.html', ctx, mimetype="application/rss+xml")
