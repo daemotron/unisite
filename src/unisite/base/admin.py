@@ -14,25 +14,22 @@ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 '''
 
-from django.conf.urls.defaults import patterns, include, url
-
-# Uncomment the next two lines to enable the admin:
+from unisite.base import models
 from django.contrib import admin
-admin.autodiscover()
 
-urlpatterns = patterns('',
-    # Index is index...
-    url(r'^$', 'my_universe.page.views.index', name="index-page"),
+class NavElementTranslationInline(admin.TabularInline):
+    model = models.NavElementTranslation
+    extra = 3
 
-    # Page module
-    url(r'^page/', include('unisite.page.urls')),
-    
-    # Blog module
-    url(r'^blog/', include('unisite.blog.urls')),
+class NavElementInline(admin.StackedInline):
+    model = models.NavElement
+    extra = 1
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+class NavElementAdmin(admin.ModelAdmin):
+    inlines = [NavElementTranslationInline]
 
-    # Uncomment the next line to enable the admin:
-    url(r'^admin/', include(admin.site.urls)),
-)
+class NavigationAdmin(admin.ModelAdmin):
+    inlines = [NavElementInline]
+
+admin.site.register(models.Navigation, NavigationAdmin)
+admin.site.register(models.NavElement, NavElementAdmin)
