@@ -2,4 +2,5 @@
 *.pyc
 .project
 .pydevproject
+.settings
 src/unisite/settings.py
