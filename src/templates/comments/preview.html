@@ -1,0 +1,39 @@
+{% extends "blog/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Preview your comment" %}{% endblock %}
+
+{% block content %}
+	{% load comments %}
+	<form action="{% comment_form_target %}" method="post">
+		{% csrf_token %}
+		{% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
+		{% if form.errors %}
+			<h2>{% blocktrans count form.errors|length as counter %}Please correct the error below{% plural %}Please correct the errors below{% endblocktrans %}</h2>
+		{% else %}
+			<h2>{% trans "Preview your comment" %}</h2>
+			<div class="comment">
+				<div class="comment_body">{{ comment|linebreaks|escape }}</div>
+			</div>
+			<p>
+				{% trans "and" %} <input type="submit" name="submit" class="submit-post" value="{% trans "Post your comment" %}" id="submit" /> {% trans "or make changes" %}:
+			</p>
+		{% endif %}
+	{% for field in form %}
+		{% if field.is_hidden %}
+			{{ field }}
+		{% else %}
+			{% ifnotequal field.name "honeypot" %}<div class="{% if field.errors %}error{% else %}cformfield{% endif %}">{% endifnotequal %}
+			<p{% ifequal field.name "honeypot" %} style="display:none;"{% endifequal %}>
+				{{ field }} {% ifnotequal field.label_tag "<label for=\"id_comment\">Kommentar</label>" %}{{ field.label_tag }}{% endifnotequal %}
+			</p>
+			{% if field.errors %}{{ field.errors }}{% endif %}
+			{% ifnotequal field.name "honeypot" %}</div>{% endifnotequal %}
+		{% endif %}
+	{% endfor %}
+    <p>
+    	<input type="submit" name="post" class="submit-post" value="{% trans "Post" %}" />
+    	<input type="submit" name="preview" class="submit-preview" value="{% trans "Preview" %}" />
+ 	</p>
+  </form>
+{% endblock %}

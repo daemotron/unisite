@@ -1,0 +1,71 @@
+{% extends "blog/base.html" %}
+
+{% load i18n %}
+{% load comments %}
+{% load etrans %}
+ 
+{% get_entry_trans entry.id as et %}
+ 
+{% block title %}{% get_entry_trans entry.id as et %}My Universe &bull; {% trans "Blog" %} &raquo; {{ et.title_html|safe }}{% endblock %}
+
+{% block content %}
+	{% get_entry_trans entry.id as et %}
+	{# <h3 class="pubdate_entry">{{ entry.publish_date|date }}</h3> #}
+    <h1><a href="{% url unisite.blog.views.entry_list %}">{{ et.heading_html|safe }}</a></h1>
+    {% spaceless %}
+	<p class="blogentryheader">
+		{% trans "Posted by" %} <a href="{% url unisite.blog.views.entry_list author=et.author.username %}">{{ et.author.first_name }} {{ et.author.last_name }}</a>
+		{% trans "at" %} {{ entry.publish_date|date:_("DATE_FORMAT") }} {{ entry.publish_date|time:_("TIME_FORMAT") }}
+	</p>
+	{% endspaceless %}
+	{{ et.basic_content_html|safe }}
+	{% if et.extended_content_html %}
+		<a id="extended"></a>
+		{{ et.extended_content_html|safe }}
+	{% endif %}
+
+	{% spaceless %}
+	<p class="blogentryfoot">
+		{% get_comment_count for entry as comment_count %}
+		{% ifequal comment_count 0 %}
+			{% trans "No comments" %}
+		{% endifequal %}
+		{% ifnotequal comment_count 0 %}
+			{% ifequal comment_count 1 %}
+				{{ comment_count }} <a href="#comments">{% trans "comment" %}</a>
+			{% else %}
+				{{ comment_count }} <a href="#comments">{% trans "comments" %}</a>
+			{% endifequal %}
+		{% endifnotequal %}
+		{% if entry.tags.all %}
+			| {% trans "Defined tags for this entry:" %}
+			{% for tag in entry.tags.all %}
+				{% get_tag_trans tag.id as tt %}
+				<a href="{% url unisite.blog.views.entry_list tagslug=tag.slug %}">{{ tt.label }}</a>{% if not forloop.last %}, {% endif %}
+			{% endfor %}
+		{% endif %}
+	</p>
+	{% endspaceless %}
+	
+	<a id="comments"></a><h3>{% trans "Comments" %}</h3>
+	{% get_comment_list for entry as comment_list %}
+	{% if comment_list %}
+		<div id="commentlist">
+		{% for comment in comment_list %}
+			<div class="comment">
+				<div class="comment_body">{{ comment.comment|linebreaks|escape }}</div>
+				<p class="blogentryfoot">
+					{% if comment.user_url %}<a href="{{ comment.user_url }}">{{ comment.user_name }}</a>{% else %}{{ comment.user_name }}{% endif %}
+					{% trans "on" %} {{ comment.submit_date|date:_("DATE_FORMAT") }} {{ comment.submit_date|date:"H:i T" }}
+				</p>
+			</div>
+		{% endfor %}
+		</div>
+	{% else %}
+    	<p>{% trans "No comments" %}</p>
+    {% endif %}
+    <div id="comment_form">
+    	{% url unisite.blog.views.entry_detail entry.publish_date|date:"Y",entry.publish_date|date:"m",entry.publish_date|date:"d",et.slug as next %}
+    	{% render_comment_form for entry %}
+    </div>
+{% endblock %}

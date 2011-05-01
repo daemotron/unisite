@@ -1,0 +1,34 @@
+{% extends "base/base.html" %}
+
+{% block headermisc %}<link rel="alternate" type="application/rss+xml" title="RSS" href="{% url unisite.blog.feeds.views.feed_list %}" />{%endblock %}
+
+{# define sidebar items for all blog pages #}
+{% block sidebar %}
+	{% load i18n tagcloud feedreader dateutil %}
+	
+	<div class="sidebaritem">
+		<h2>{% trans "Tags" %}</h2>
+		{% get_tag_cloud as cloud %}
+		{% for tag, translation, rank, count in cloud %}
+			<span class="tcrank{{ rank }}"><a href="{% url unisite.blog.views.entry_list tagslug=tag.slug %}">{{ translation.label }}</a></span>
+		{% endfor %}
+	</div>
+	
+	<div class="sidebaritem">
+		<h2>{% trans "RSS feeds" %}</h2>
+		<p>
+			<a class="feed" href="{% url unisite.blog.feeds.views.feed_list %}">{% trans "Latest weblog entries" %}</a><br />
+			<a class="feed" href="/blog/feeds/comments">{% trans "Latest comments" %}</a>
+		</p>
+	</div>
+	
+	<div class="sidebaritem feedlist last">
+		<h2>{% trans "My recent Buzz" %}</h2>
+		{% get_feed "http://buzz.googleapis.com/feeds/100009812861847418850/public/posted" 1200 as feed %}
+		{% for entry in feed.entries|slice:":3" %}
+			{% get_datetime entry.published_parsed.0 entry.published_parsed.1 entry.published_parsed.2 entry.published_parsed.3 entry.published_parsed.4 entry.published_parsed.5 as edate %}
+			<h4 class="buzz"><a href="{{ entry.link }}">{{ edate|date:_("DATE_FORMAT") }} {{ edate|date:"H:i T" }}</a></h4>
+			{{ entry.summary|linebreaks }}
+		{% endfor %}
+	</div>
+{% endblock %}

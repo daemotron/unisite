@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">{% load i18n %}{% load etrans %}{% load comments %}
+	<channel>{% get_entry_trans entry.id as et %}
+		<title>My Universe Blog Comments</title>
+		<link>{% if secure %}https://{% else %}http://{% endif %}{{ host }}{% url unisite.blog.views.entry_detail entry.publish_date|date:"Y",entry.publish_date|date:"m",entry.publish_date|date:"d",et.slug %}#comments</link>
+		<description>Mens Insana in Corpore Ignavo</description>
+		<language>{{ LANGUAGE_CODE }}</language>
+		<copyright>Daemotron</copyright>
+		<generator>UniSite powered by Django - http://projects.my-universe.com/projects/unisite</generator> 
+		<lastBuildDate>{% spaceless %}
+    		{% if pubdate %}
+    			{{ pubdate|date:"r" }}
+    		{% else %}
+    			{% now "r" %}
+    		{% endif %}
+    	{% endspaceless %}</lastBuildDate>
+    
+		<image>
+			<url>{% if secure %}https://{% else %}http://{% endif %}{{ host }}/assets/images/template/logo.png</url>
+			<title>My Universe Blog Comments</title>
+			<link>{% if secure %}https://{% else %}http://{% endif %}{{ host }}{% url unisite.blog.views.entry_list %}</link>
+		</image>
+    	
+    	{% get_comment_list for entry as comment_list %}
+    	{% for comment in comment_list %}
+		<item>
+			<title>#{{ forloop.counter }} {% blocktrans with comment.user_name as user %}{{ user }} on{% endblocktrans %} {{ heading_html|escape }}</title>
+			<link>{% if secure %}https://{% else %}http://{% endif %}{{ host }}{% url unisite.blog.views.entry_detail entry.publish_date|date:"Y",entry.publish_date|date:"m",entry.publish_date|date:"d",et.slug %}?c={{ comment.id }}</link>
+			<pubDate>{{ comment.submit_date|date:"r" }}</pubDate>
+			<author>{{ comment.user_name }}, {{ comment.user_email }}</author>
+			<guid>{% if secure %}https://{% else %}http://{% endif %}{{ host }}{% url unisite.blog.views.entry_detail entry.publish_date|date:"Y",entry.publish_date|date:"m",entry.publish_date|date:"d",et.slug %}?c={{ comment.id }}</guid>
+			<description>{{ comment.comment|linebreaks|force_escape }}</description>
+		</item>
+    	{% endfor %}
+	</channel>
+</rss>

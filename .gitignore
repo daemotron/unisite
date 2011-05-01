@@ -3,4 +3,5 @@
 .project
 .pydevproject
 .settings
+src/scripts/django.wsgi
 src/unisite/settings.py

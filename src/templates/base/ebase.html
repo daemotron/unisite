@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="/assets/style/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/style/trac.css" />
+    <title>{% block title %}My Universe{% endblock %}</title>
+    {% block headermisc %}{% endblock %}
+</head>
+
+<body>
+    <div id="LogoHeader">
+        <div id="LogoImg"><img src="/assets/images/template/logo.png" alt="My Universe Logo" /></div>
+    </div>
+
+    <div id="NavHeader">
+        <div id="NavWrapper">&nbsp;</div>
+    </div>
+
+    <div id="wrapper">
+        <div id="main">
+
+            <div id="sidebar">
+                {% block sidebar %}
+
+                {% endblock %}
+            </div>
+
+            <div id="content">
+                {% block content %}{% endblock %}
+            </div>
+
+			<div id="unifier"></div>
+
+        </div>
+    </div>
+
+    <div id="globalFooter">
+        <p>
+            <img alt="Creative Commons License" style="border-width:0" src="/assets/images/template/creativecommons.png" />
+            Content is subject to the conditions of the
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/de/deed.en" title="Attribution-Noncommercial-Share Alike 3.0 Germany">Creative Commons Attribution-Noncommercial-Share Alike 3.0 Germany</a>
+            license.
+        </p>
+        <p>Copyright &copy; 2002 &ndash; {% now "Y" %} Daemotron</p>
+    </div>
+</body>
+</html>

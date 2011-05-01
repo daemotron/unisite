@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:wfw="http://wellformedweb.org/CommentAPI/">{% load i18n %}{% load etrans %}
+	<channel>
+		<title>My Universe {% trans "Blog" %}{% spaceless %}
+			{% if filter.author %}
+				: {% trans "Entries by" %} {{ filter.author.first_name }} {{ filter.author.last_name }}
+			{% endif %}
+			{% if filter.date.value %}
+				{% if filter.date.type %}
+					: {% trans "Entries from" %} {{ filter.date.value|date:filter.date.type }}
+				{% else %}
+					: {% trans "Entries from" %} {{ filter.date.value|date:_("DATE_FORMAT") }}
+				{% endif %}
+			{% endif %}
+			{% if filter.tag %}
+				{% get_tag_trans filter.tag.id as tt %}
+					: {% trans "Entries Tagged as" %} {{ tt.label }}
+			{% endif %}
+			{% endspaceless %}</title>
+		<link>{% if secure %}https://{% else %}http://{% endif %}{{ host }}{% spaceless %}
+	    	{% if not filter.author and not filter.date.value and not filter.tag %}
+	    		{% url unisite.blog.views.entry_list %}
+	    	{% else %}
+	    		{% if filter.author %}
+					{% url unisite.blog.views.entry_list author=filter.author.username %}
+				{% endif %}
+				{% if filter.date.value %}
+					{% if filter.date.type %}
+						{% ifequal filter.date.type "Y" %}
+							{% url unisite.blog.views.entry_list year=filter.date.value|date:"Y" %}
+						{% endifequal %}
+						{% ifequal filter.date.type "F Y" %}
+							{% url unisite.blog.views.entry_list year=filter.date.value|date:"Y",month=filter.date.value|date:"m" %}
+						{% endifequal %}
+					{% else %}
+						{% url unisite.blog.views.entry_list year=filter.date.value|date:"Y",month=filter.date.value|date:"m",day=filter.date.value|date:"d" %}
+					{% endif %}
+				{% endif %}
+				{% if filter.tag %}
+					{% url unisite.blog.views.entry_list tagslug=filter.tag.slug %}
+				{% endif %}
+			{% endif %}
+    		{% endspaceless %}</link>
+		<description>Mens Insana in Corpore Ignavo</description>
+		<language>{{ LANGUAGE_CODE }}</language>
+		<copyright>Daemotron</copyright>
+		<generator>UniSite powered by Django - http://projects.my-universe.com/projects/unisite</generator> 
+		<lastBuildDate>{% spaceless %}
+    		{% if pubdate %}
+    			{{ pubdate|date:"r" }}
+    		{% else %}
+    			{% now "r" %}
+    		{% endif %}
+    	{% endspaceless %}</lastBuildDate>
+    
+		<image>
+			<url>{% if secure %}https://{% else %}http://{% endif %}{{ host }}/assets/images/template/logo.png</url>
+			<title>My Universe Blog</title>
+			<link>{% if secure %}https://{% else %}http://{% endif %}{{ host }}{% url unisite.blog.views.entry_list %}</link>
+		</image>
+    	
+    	{% for entry in entries %}
+    		{% get_entry_trans entry.id as et %}
+		<item>
+			<title>{{ et.heading_html|escape }}</title>
+			<link>{% if secure %}https://{% else %}http://{% endif %}{{ host }}{% url unisite.blog.views.entry_detail entry.publish_date|date:"Y",entry.publish_date|date:"m",entry.publish_date|date:"d",et.slug %}</link>
+			<pubDate>{{ entry.publish_date|date:"r" }}</pubDate>
+			<author>{{ et.author.first_name }} {{ et.author.last_name }}, {{ et.author.email }}</author>
+			<guid>{% if secure %}https://{% else %}http://{% endif %}{{ host }}{% url unisite.blog.views.entry_detail entry.publish_date|date:"Y",entry.publish_date|date:"m",entry.publish_date|date:"d",et.slug %}</guid>
+			<wfw:commentRss>{% if secure %}https://{% else %}http://{% endif %}{{ host }}{% url unisite.blog.feeds.views.comment_list entry.id %}</wfw:commentRss> 
+			<description>{{ et.basic_content_html|escape }}{% if et.extended_content_html %}&lt;p class=&quot;extender&quot;&gt;&lt;a href=&quot;{% url unisite.blog.views.entry_detail entry.publish_date|date:"Y",entry.publish_date|date:"m",entry.publish_date|date:"d",et.slug %}#extended&quot;&gt;{% blocktrans with et.heading_html|escape as et_h %}continue reading {{et_h}}{% endblocktrans %}&lt;/a&gt;&lt;/p&gt;{% endif %}</description>
+		</item>
+    	{% endfor %}
+	</channel>
+</rss>

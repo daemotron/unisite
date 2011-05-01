@@ -1,0 +1,117 @@
+{% extends "blog/base.html" %}
+
+{% load i18n %}
+{% load comments %}
+{% load etrans %}
+ 
+{% block title %}My Universe &bull; {% trans "Blog " %}{% spaceless %}
+			{% if filter.author %}
+				&raquo; {% trans "Entries by" %} {{ filter.author.first_name }} {{ filter.author.last_name }}
+			{% endif %}
+			{% if filter.date.value %}
+				{% if filter.date.type %}
+					&raquo; {% trans "Entries from" %} {{ filter.date.value|date:filter.date.type }}
+				{% else %}
+					&raquo; {% trans "Entries from" %} {{ filter.date.value|date:_("DATE_FORMAT") }}
+				{% endif %}
+			{% endif %}
+			{% if filter.tag %}
+				{% get_tag_trans filter.tag.id as tt %}
+					&raquo; {% trans "Entries Tagged as" %} {{ tt.label }}
+			{% endif %}
+			{% endspaceless %}{% endblock %}
+
+{% block content %}
+    <h1>My Universe {% trans "Blog " %}{% spaceless %}
+			{% if filter.author %}
+				&raquo; {% trans "Entries by" %} {{ filter.author.first_name }} {{ filter.author.last_name }}
+				{% url unisite.blog.views.entry_list author=filter.author.username as siteurl %}
+			{% endif %}
+			{% if filter.date.value %}
+				{% if filter.date.type %}
+					&raquo; {% trans "Entries from" %} {{ filter.date.value|date:filter.date.type }}
+					{% ifequal filter.date.type "Y" %}
+						{% url unisite.blog.views.entry_list year=filter.date.value|date:"Y" as siteurl %}
+					{% else %}
+						{% url unisite.blog.views.entry_list year=filter.date.value|date:"Y",month=filter.date.value|date:"m" as siteurl %}
+					{% endifequal %}
+				{% else %}
+					&raquo; {% trans "Entries from" %} {{ filter.date.value|date:_("DATE_FORMAT") }}
+					{% url unisite.blog.views.entry_list year=filter.date.value|date:"Y",month=filter.date.value|date:"m",day=filter.date.value|date:"d" as siteurl %}
+				{% endif %}
+			{% endif %}
+			{% if filter.tag %}
+				{% get_tag_trans filter.tag.id as tt %}
+					&raquo; {% trans "Entries Tagged as" %} {{ tt.label }}
+					{% url unisite.blog.views.entry_list tagslug=filter.tag.slug as siteurl %}
+			{% endif %}
+			{% endspaceless %}</h1>
+			
+			{% if not siteurl %}
+    			{% url unisite.blog.views.entry_list as siteurl %}
+    		{% endif %}
+    		
+    {% regroup entries.object_list by publish_date|date as dlist %}
+    
+    {% for dayset in dlist %}
+    	{# <h3 class="pubdate">{{ dayset.grouper }}</h3> #}
+    	{% for entry in dayset.list %}
+    		{% get_entry_trans entry.id as et %}
+    		<h2><a href="{% url unisite.blog.views.entry_detail entry.publish_date|date:"Y",entry.publish_date|date:"m",entry.publish_date|date:"d",et.slug %}">{{ et.heading_html|safe }}</a></h2>
+    		{% spaceless %}
+			<p class="blogentryheader">
+				{% trans "Posted by" %} <a href="{% url unisite.blog.views.entry_list author=et.author.username %}">{{ et.author.first_name }} {{ et.author.last_name }}</a>
+				{% trans "at" %} {{ entry.publish_date|date:_("DATE_FORMAT") }} {{ entry.publish_date|time:_("TIME_FORMAT") }}
+			</p>
+    		{% endspaceless %}
+    		{{ et.basic_content_html|safe }}
+			{% if et.extended_content_html %}
+				{% spaceless %}
+					<p class="extender"><a href="{% url unisite.blog.views.entry_detail entry.publish_date|date:"Y",entry.publish_date|date:"m",entry.publish_date|date:"d",et.slug %}#extended">
+					{% blocktrans with et.heading_html|safe as et_h %}continue reading {{et_h}}{% endblocktrans %}
+					</a></p>
+				{% endspaceless %}
+			{% endif %}
+			{% spaceless %}
+			<p class="blogentryfoot">
+				{% get_comment_count for entry as comment_count %}
+				{% ifequal comment_count 0 %}
+					{% trans "No comments" %}
+				{% endifequal %}
+				{% ifnotequal comment_count 0 %}
+					{% ifequal comment_count 1 %}
+						{{ comment_count }} <a href="{% url unisite.blog.views.entry_detail entry.publish_date|date:"Y",entry.publish_date|date:"m",entry.publish_date|date:"d",et.slug %}#comments">{% trans "comment" %}</a>
+					{% else %}
+						{{ comment_count }} <a href="{% url unisite.blog.views.entry_detail entry.publish_date|date:"Y",entry.publish_date|date:"m",entry.publish_date|date:"d",et.slug %}#comments">{% trans "comments" %}</a>
+					{% endifequal %}
+				{% endifnotequal %}
+				{% if entry.tags.all %}
+					| {% trans "Defined tags for this entry:" %}
+					{% for tag in entry.tags.all %}
+						{% get_tag_trans tag.id as tt %}
+						<a href="{% url unisite.blog.views.entry_list tagslug=tag.slug %}">{{ tt.label }}</a>{% if not forloop.last %}, {% endif %}
+					{% endfor %}
+				{% endif %}
+				</p>
+			{% endspaceless %}
+		{% endfor %}
+    {% empty %}
+    	<h2>{% trans "Sorry" %}!</h2>
+    	<p>{% trans "No entries found." %}</p>
+    {% endfor %}
+	
+	<div id="pagenum">
+		{% if entries.has_previous %}
+    	    <a href="{{ siteurl }}{% ifnotequal siteurl|last "/" %}/{% endifnotequal %}page/{{ entries.previous_page_number }}">{% trans "&laquo; previous page" %}</a>
+    	{% endif %}
+
+	    <span class="pageinfo">
+        	{% trans "Page" %} {{ entries.number }} {% trans "of" %} {{ entries.paginator.num_pages }}
+	    </span>
+
+    	{% if entries.has_next %}
+        	<a href="{{ siteurl }}{% ifnotequal siteurl|last "/" %}/{% endifnotequal %}page/{{ entries.next_page_number }}">{% trans "next page &raquo;" %}</a>
+    	{% endif %}
+    </div>
+    
+{% endblock %}

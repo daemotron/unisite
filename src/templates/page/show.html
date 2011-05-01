@@ -1,0 +1,10 @@
+{% extends "base/base.html" %}
+
+{% block title %}
+    My Universe &bull; {{ title|safe }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ heading|safe }}</h1>
+    {{ content|safe }}
+{% endblock %}
