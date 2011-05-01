@@ -1,0 +1,562 @@
+# German translations for the My Universe homepage.
+# Copyright (C) 2010 Jesco Freund.
+# This file is distributed under the same license as the unisite package.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-07-27 13:13+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: unisite/settings.py:118 unisite/settings_default.py:119
+msgid "German"
+msgstr "Deutsch"
+
+#: unisite/settings.py:119 unisite/settings_default.py:120
+msgid "English"
+msgstr "Englisch"
+
+#: unisite/settings.py:120 unisite/settings_default.py:122
+msgid "French"
+msgstr "Französisch"
+
+#: unisite/settings.py:121 unisite/settings_default.py:121
+msgid "Spanish"
+msgstr "Spanisch"
+
+#: unisite/settings.py:122
+msgid "Japanese"
+msgstr "Japanisch"
+
+#: unisite/antispam/models.py:7 unisite/blog/models.py:44
+#: unisite/blog/models.py:100 unisite/page/models.py:24
+msgid "language"
+msgstr "Sprache"
+
+#: unisite/antispam/models.py:8
+msgid "question"
+msgstr "Frage"
+
+#: unisite/antispam/models.py:9
+msgid "answer (regular expression)"
+msgstr "Antwort (regulärer Ausdruck)"
+
+#: unisite/base/models.py:14 templates/blog/entry_list.html:109
+msgid "Page"
+msgstr "Seite"
+
+#: unisite/base/models.py:15 templates/blog/entry_detail.html:9
+#: templates/blog/feeds/rss_entries.html:4
+msgid "Blog"
+msgstr "Blog"
+
+#: unisite/base/models.py:19 unisite/base/models.py:43
+msgid "Name"
+msgstr "Name"
+
+#: unisite/base/models.py:26
+msgid "Navigation"
+msgstr "Navigation"
+
+#: unisite/base/models.py:27
+msgid "Position"
+msgstr "Position"
+
+#: unisite/base/models.py:28
+msgid "Default Link Target Object Type"
+msgstr "Typ für Standardverknüpfung"
+
+#: unisite/base/models.py:29
+msgid "Default Link Target Object Identifier"
+msgstr "Schlüssel für Standardverknüpfung"
+
+#: unisite/base/models.py:30
+msgid "Default Name"
+msgstr "Standard-Name"
+
+#: unisite/base/models.py:31
+msgid "Default \"Is Active\" Pattern"
+msgstr "Standard-Muster \"ist aktiv\""
+
+#: unisite/base/models.py:41
+msgid "Navigation Element"
+msgstr "Navigationselement"
+
+#: unisite/base/models.py:42
+msgid "Language"
+msgstr "Sprache"
+
+#: unisite/base/models.py:44
+msgid "Link Target Object Type"
+msgstr "Typ für Verknüpfung"
+
+#: unisite/base/models.py:45
+msgid "Link Target Object Identifier"
+msgstr "Schlüssel für Verknüpfung"
+
+#: unisite/base/models.py:46
+msgid "\"Is Active\" Pattern"
+msgstr "Muster \"ist aktiv\""
+
+#: unisite/blog/admin.py:27
+msgid "Mark selected entries as published"
+msgstr "Veröffentliche ausgewählte Einträge"
+
+#: unisite/blog/admin.py:31
+msgid "Mark selected entries as withdrawn"
+msgstr "Ziehe ausgewählte Einträge zurück"
+
+#: unisite/blog/admin.py:35 unisite/page/admin.py:13
+msgid "General"
+msgstr "Allgemein"
+
+#: unisite/blog/admin.py:36 unisite/page/admin.py:14
+msgid "Publishing"
+msgstr "Veröffentlichung"
+
+#: unisite/blog/admin.py:37
+msgid "Meta information"
+msgstr "Zusatzinformationen"
+
+#: unisite/blog/admin.py:53 unisite/blog/models.py:10
+msgid "Published"
+msgstr "Veröffentlicht"
+
+#: unisite/blog/models.py:9
+msgid "Draft"
+msgstr "Entwurf"
+
+#: unisite/blog/models.py:11
+msgid "Withdrawn"
+msgstr "Zurückgezogen"
+
+#: unisite/blog/models.py:15
+msgid "tag name"
+msgstr "Name des Tags"
+
+#: unisite/blog/models.py:16
+msgid "tag slug"
+msgstr "Tag Slug"
+
+#: unisite/blog/models.py:37
+msgid "tag"
+msgstr "Tags"
+
+#: unisite/blog/models.py:38 unisite/blog/models.py:73
+msgid "tags"
+msgstr "Tags"
+
+#: unisite/blog/models.py:43 unisite/blog/models.py:52
+msgid "tag translation"
+msgstr "Übersetzung des Tags"
+
+#: unisite/blog/models.py:45
+msgid "translated tag label"
+msgstr "Übersetzte Tag-Beschriftung"
+
+#: unisite/blog/models.py:53
+msgid "tag translations"
+msgstr "Übersetzung des Tags"
+
+#: unisite/blog/models.py:67
+msgid "entry name"
+msgstr "Name des Eintrags"
+
+#: unisite/blog/models.py:68
+msgid "entry default slug"
+msgstr "Standard-Slug des Eintrags"
+
+#: unisite/blog/models.py:71 unisite/page/models.py:16
+msgid "publishing date"
+msgstr "Stichtag"
+
+#: unisite/blog/models.py:72
+msgid "status"
+msgstr "Status"
+
+#: unisite/blog/models.py:94 unisite/blog/models.py:99
+msgid "entry"
+msgstr "Eintrag"
+
+#: unisite/blog/models.py:95
+msgid "entries"
+msgstr "Einträge"
+
+#: unisite/blog/models.py:101 unisite/page/models.py:29
+msgid "author's name"
+msgstr "Name des Autors"
+
+#: unisite/blog/models.py:102
+msgid "entry slug (URL)"
+msgstr "Slug des Eintrags (URL)"
+
+#: unisite/blog/models.py:103
+msgid "entry title"
+msgstr "Titel des Eintrags"
+
+#: unisite/blog/models.py:104
+msgid "entry heading"
+msgstr "Überschrift des Eintrags"
+
+#: unisite/blog/models.py:105
+msgid "basic entry content (reStructuredText)"
+msgstr "Eintragsinhalt (reStructuredText)"
+
+#: unisite/blog/models.py:106
+msgid "extended entry content (reStructuredText)"
+msgstr "Erweiterter Eintragsinhalt (reStructuredText)"
+
+#: unisite/blog/models.py:125
+msgid "entry translation"
+msgstr "Übersetzung des Eintrags"
+
+#: unisite/blog/models.py:126
+msgid "entry translations"
+msgstr "Übersetzung des Eintrags"
+
+#: unisite/page/models.py:12
+msgid "page name"
+msgstr "Seitenname"
+
+#: unisite/page/models.py:13
+msgid "page default slug"
+msgstr "Standard-Slug der Seite"
+
+#: unisite/page/models.py:23
+msgid "page"
+msgstr "Seite"
+
+#: unisite/page/models.py:25
+msgid "page slug (URL)"
+msgstr "Slug der Seite (URL)"
+
+#: unisite/page/models.py:26
+msgid "page title"
+msgstr "Seitentitel"
+
+#: unisite/page/models.py:27
+msgid "page heading"
+msgstr "Seitenüberschrift"
+
+#: unisite/page/models.py:28
+msgid "page content (reStructuredText)"
+msgstr "Seiteninhalt (reStructuredText)"
+
+#: unisite/util/date.py:5
+msgid "January"
+msgstr "Januar"
+
+#: unisite/util/date.py:7
+msgid "February"
+msgstr "Februar"
+
+#: unisite/util/date.py:9
+msgid "March"
+msgstr "März"
+
+#: unisite/util/date.py:11
+msgid "April"
+msgstr "April"
+
+#: unisite/util/date.py:13
+msgid "May"
+msgstr "Mai"
+
+#: unisite/util/date.py:15
+msgid "June"
+msgstr "Juni"
+
+#: unisite/util/date.py:17
+msgid "July"
+msgstr "Juli"
+
+#: unisite/util/date.py:19
+msgid "August"
+msgstr "August"
+
+#: unisite/util/date.py:21
+msgid "September"
+msgstr "September"
+
+#: unisite/util/date.py:23
+msgid "October"
+msgstr "Oktober"
+
+#: unisite/util/date.py:25
+msgid "November"
+msgstr "November"
+
+#: unisite/util/date.py:27
+msgid "December"
+msgstr "Dezember"
+
+#: unisite/util/date.py:34
+msgid "Monday"
+msgstr "Montag"
+
+#: unisite/util/date.py:36
+msgid "Tuesday"
+msgstr "Dienstag"
+
+#: unisite/util/date.py:38
+msgid "Wednesday"
+msgstr "Mittwoch"
+
+#: unisite/util/date.py:40
+msgid "Thursday"
+msgstr "Donnerstag"
+
+#: unisite/util/date.py:42
+msgid "Friday"
+msgstr "Freitag"
+
+#: unisite/util/date.py:44
+msgid "Saturday"
+msgstr "Samstag"
+
+#: unisite/util/date.py:46
+msgid "Sunday"
+msgstr "Sonntag"
+
+#: templates/admin/base_site.html:4
+msgid "My Universe site admin"
+msgstr "My Universe Website-Verwaltung"
+
+#: templates/admin/base_site.html:7
+msgid "My Universe administration"
+msgstr "My Universe Website-Verwaltung"
+
+#: templates/admin/index.html:18
+#, python-format
+msgid "Models available in the %(name)s application."
+msgstr "In der Anwendung %(name)s verfügbare Modelle"
+
+#: templates/admin/index.html:19
+#, python-format
+msgid "%(name)s"
+msgstr "%(name)s"
+
+#: templates/admin/index.html:29
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: templates/admin/index.html:35
+msgid "Change"
+msgstr "Übernehmen"
+
+#: templates/admin/index.html:45
+msgid "You don't have permission to edit anything."
+msgstr "Sie haben nicht die Berechtigung etwas zu verändern."
+
+#: templates/admin/index.html:53
+msgid "Recent Actions"
+msgstr "Kürzliche Aktionen"
+
+#: templates/admin/index.html:54
+msgid "My Actions"
+msgstr "Meine Aktionen"
+
+#: templates/admin/index.html:58
+msgid "None available"
+msgstr "Keine verfügbar"
+
+#: templates/admin/index.html:72
+msgid "Unknown content"
+msgstr "Unbekannter Inhalt"
+
+#: templates/base/base.html:52
+msgid "Content is subject to the conditions of the"
+msgstr "Der Inhalt steht unter der"
+
+#: templates/base/base.html:53
+msgid "Creative Commons Attribution-Noncommercial-Share Alike 3.0 Germany"
+msgstr "Creative Commons Attribution-Noncommercial-Share Alike 3.0 Deutschland"
+
+#: templates/base/base.html:54
+msgid "license"
+msgstr "Lizenz"
+
+#: templates/blog/base.html:10
+msgid "Tags"
+msgstr "Tags"
+
+#: templates/blog/base.html:18
+msgid "RSS feeds"
+msgstr "RSS Feeds"
+
+#: templates/blog/base.html:20
+msgid "Latest weblog entries"
+msgstr "Blog-Einträge"
+
+#: templates/blog/base.html:21
+msgid "Latest comments"
+msgstr "Kommentare"
+
+#: templates/blog/base.html:26
+msgid "My recent Buzz"
+msgstr "Mein Buzz"
+
+#: templates/blog/base.html:30 templates/blog/entry_detail.html:18
+#: templates/blog/entry_detail.html:59 templates/blog/entry_list.html:15
+#: templates/blog/entry_list.html.py:39 templates/blog/entry_list.html:64
+#: templates/blog/feeds/rss_entries.html:12
+msgid "DATE_FORMAT"
+msgstr "d. F Y"
+
+#: templates/blog/entry_detail.html:17 templates/blog/entry_list.html:63
+msgid "Posted by"
+msgstr "Geschrieben von"
+
+#: templates/blog/entry_detail.html:18 templates/blog/entry_list.html:64
+msgid "at"
+msgstr "am"
+
+#: templates/blog/entry_detail.html:18 templates/blog/entry_list.html:64
+msgid "TIME_FORMAT"
+msgstr "H:i"
+
+#: templates/blog/entry_detail.html:31 templates/blog/entry_detail.html:65
+#: templates/blog/entry_list.html:79
+msgid "No comments"
+msgstr "Keine Kommentare"
+
+#: templates/blog/entry_detail.html:35 templates/blog/entry_list.html:83
+msgid "comment"
+msgstr "Kommentar"
+
+#: templates/blog/entry_detail.html:37 templates/blog/entry_list.html:85
+msgid "comments"
+msgstr "Kommentare"
+
+#: templates/blog/entry_detail.html:41 templates/blog/entry_list.html:89
+msgid "Defined tags for this entry:"
+msgstr "Tags für diesen Eintrag:"
+
+#: templates/blog/entry_detail.html:50
+msgid "Comments"
+msgstr "Kommentare"
+
+#: templates/blog/entry_detail.html:59
+msgid "on"
+msgstr "am"
+
+#: templates/blog/entry_list.html:7 templates/blog/entry_list.html.py:25
+msgid "Blog "
+msgstr "Blog"
+
+#: templates/blog/entry_list.html:9 templates/blog/entry_list.html.py:27
+#: templates/blog/feeds/rss_entries.html:6
+msgid "Entries by"
+msgstr "Einträge von"
+
+#: templates/blog/entry_list.html:13 templates/blog/entry_list.html.py:15
+#: templates/blog/entry_list.html:32 templates/blog/entry_list.html.py:39
+#: templates/blog/feeds/rss_entries.html:10
+#: templates/blog/feeds/rss_entries.html:12
+msgid "Entries from"
+msgstr "Einträge von"
+
+#: templates/blog/entry_list.html:20 templates/blog/entry_list.html.py:45
+#: templates/blog/feeds/rss_entries.html:17
+msgid "Entries Tagged as"
+msgstr "Einträge mit Tag"
+
+#: templates/blog/entry_list.html:71 templates/blog/feeds/rss_entries.html:71
+#, python-format
+msgid "continue reading %(et_h)s"
+msgstr "%(et_h)s vollständig lesen"
+
+#: templates/blog/entry_list.html:99
+msgid "Sorry"
+msgstr "Tut uns leid"
+
+#: templates/blog/entry_list.html:100
+msgid "No entries found."
+msgstr "Es wurden keine Einträge gefunden"
+
+#: templates/blog/entry_list.html:105
+msgid "&laquo; previous page"
+msgstr "&laquo; vorhergehende Seite"
+
+#: templates/blog/entry_list.html:109
+msgid "of"
+msgstr "von"
+
+#: templates/blog/entry_list.html:113
+msgid "next page &raquo;"
+msgstr "nächste Seite &raquo;"
+
+#: templates/blog/feeds/rss_comments.html:27
+#, python-format
+msgid "%(user)s on"
+msgstr "%(user)s zu"
+
+#: templates/comments/form.html:16 templates/comments/preview.html:35
+msgid "Post"
+msgstr "Abschicken"
+
+#: templates/comments/form.html:17 templates/comments/preview.html:36
+msgid "Preview"
+msgstr "Vorschau"
+
+#: templates/comments/preview.html:4 templates/comments/preview.html.py:14
+msgid "Preview your comment"
+msgstr "Kommentarvorschau"
+
+#: templates/comments/preview.html:12
+msgid "Please correct the error below"
+msgid_plural "Please correct the errors below"
+msgstr[0] "Bitte den unten aufgeführten Fehler korrigieren."
+msgstr[1] "Bitte die unten aufgeführten Fehler korrigieren."
+
+#: templates/comments/preview.html:19
+msgid "and"
+msgstr "und"
+
+#: templates/comments/preview.html:19
+msgid "Post your comment"
+msgstr "Kommentar abschicken"
+
+#: templates/comments/preview.html:19
+msgid "or make changes"
+msgstr "oder Änderungen vornehmen"
+
+#~ msgid "author's ip address"
+#~ msgstr "IP-Adresse des Autors"
+
+#~ msgid "comment replies to"
+#~ msgstr "Kommentar bezieht sich auf"
+
+#~ msgid "comment body"
+#~ msgstr "Kommentar-Inhalt"
+
+#~ msgid "Trackbacks"
+#~ msgstr "Trackbacks"
+
+#~ msgid "previous"
+#~ msgstr "vorherige"
+
+#~ msgid "next"
+#~ msgstr "nächste"
+
+#~ msgid ""
+#~ "\n"
+#~ "\t\t\t\t<p class=\"extender\"><a href=\"#extended\">continue reading "
+#~ "%(et_h)s</a></p>\n"
+#~ "\t\t\t"
+#~ msgstr ""
+#~ "\n"
+#~ "\t\t\t\t<p class=\"extender\"><a href=\"#extended\">%(et_h)s vollständig "
+#~ "lesen</a></p>\n"
+#~ "\t\t\t"
+
+#~ msgid "DATETIME_FORMAT"
+#~ msgstr "d. F Y H:i"
